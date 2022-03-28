@@ -8,7 +8,7 @@ func main() {
 	// Отсылаем данные в in channel.
 	// Так же можно сделать буффер достаточно большим,
 	// чтобы было меньше переключений между горутинами.
-	in := make(chan int, 5)
+	in := make(chan int)
 	go func() {
 		defer close(in)
 		for _, num := range input {

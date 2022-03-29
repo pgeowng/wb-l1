@@ -5,10 +5,11 @@ import (
 	"time"
 )
 
-// Выход если можем записать в канал без блокировки
+// Выход, если можем записать в канал без блокировки.
 func routine(done chan<- struct{}) {
 	defer fmt.Println("stopped")
 	fmt.Println("working")
+
 	for {
 		select {
 		case done <- struct{}{}:

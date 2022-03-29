@@ -6,10 +6,11 @@ import (
 	"time"
 )
 
-// Выход если контекст считается завершенным
+// Выход, если контекст завершен.
 func routine(ctx context.Context) {
 	defer fmt.Println("stopped")
 	fmt.Println("working")
+
 	for {
 		select {
 		case <-ctx.Done():

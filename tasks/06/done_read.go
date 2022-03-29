@@ -5,10 +5,11 @@ import (
 	"time"
 )
 
-// Выход если можем считать канал
+// Выход, если можем считать канал.
 func routine(done <-chan struct{}) {
 	defer fmt.Println("stopped")
 	fmt.Println("working")
+
 	for {
 		select {
 		case <-done:
@@ -18,7 +19,6 @@ func routine(done <-chan struct{}) {
 }
 
 func main() {
-
 	done := make(chan struct{})
 	go routine(done)
 

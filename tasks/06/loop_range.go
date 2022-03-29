@@ -5,11 +5,12 @@ import (
 	"time"
 )
 
-// Выход по закрытию входного канала
+// Выход, по закрытию входного канала.
 func routine(ch <-chan int) {
 	defer fmt.Println("stopped")
 	fmt.Println("working")
 
+	// Альтернативный код для того же результата
 	// for val := range ch {
 	// 	_ = val
 	// }

@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"math/rand"
 	"sync"
+	"time"
 )
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	size := rand.Intn(30) + 10
 	fmt.Printf("Sending %d values...\n", size)
 

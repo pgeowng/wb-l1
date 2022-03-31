@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
 	"time"
 )
@@ -24,19 +25,32 @@ func (c *Counter) Get() int {
 }
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	wg := sync.WaitGroup{}
 	c := Counter{}
 
 	for i := 0; i < 100; i++ {
-		idx := i
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			time.Sleep(time.Second * time.Duration(idx%5))
+			time.Sleep(time.Millisecond * time.Duration(rand.Intn(5000)))
 			c.Inc()
 		}()
 	}
 
-	wg.Wait()
-	fmt.Println(c.Get())
+	done := make(chan struct{})
+	go func() {
+		wg.Wait()
+		close(done)
+	}()
+
+	for {
+		select {
+		case <-done:
+			fmt.Println(c.Get())
+			return
+		case <-time.After(time.Duration(300) * time.Millisecond):
+			fmt.Println(c.Get())
+		}
+	}
 }

@@ -5,8 +5,16 @@ import "fmt"
 func main() {
 	arr := []int{0, 1, 1, 2, 3, 5, 8, 11}
 
+	fmt.Println(arr)
+
+	// Самый простой способ
+	idx := 3
+	arr = append(arr[:idx], arr[idx+1:]...)
+
+	fmt.Println(arr)
+
 	// Используем copy, если удаление из середины.
-	idx := 5
+	idx = 5
 	copy(arr[idx:], arr[idx+1:])
 	// Всегда сокращаем длину
 	arr = arr[:len(arr)-1]
